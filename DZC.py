@@ -19,13 +19,13 @@ import socket
 
 def main(HOST,rpm):
     
-    if rpm == 'rpm400':
+    if rpm == 'r400':
         rpm_input=bytearray(b'\xa1\x00\x00\x00\x55\x04\x08\x00\x90\x01\x99\x00')
-    elif rpm == 'rpm200':
+    elif rpm == 'r200':
         rpm_input=bytearray(b'\xa1\x00\x00\x00\x55\x04\x08\x00\xc8\x00\xd0\x00')
-    elif rpm == 'rpm100':
+    elif rpm == 'r100':
         rpm_input=bytearray(b'\xa1\x00\x00\x00\x55\x04\x08\x00\x64\x00\x6c\x00')
-    elif rpm == 'rpm0':
+    elif rpm == 'r0':
         rpm_input=bytearray(b'\xa1\x00\x00\x00\x55\x04\x08\x00\x00\x00\x08\x00')
     elif rpm == 'exit':
         rpm_input=bytearray(b'\xa1\x00\x00\x00\x55\x04\x08\x00\x00\x00\x08\x00')
@@ -35,11 +35,10 @@ def main(HOST,rpm):
     s.recv(1024)
 #    msg = rpm
     s.sendall(rpm_input)
-#    s.setblocking(0)
+#    s.setblocking(0),,
     print ('Send', HOST, rpm)
 #    r, _, _ = select.select([s], [], [])
     if r:
-        # 接收结果
         data = s.recv(1024)#.strip('\x00')
     else:
         print('recv error')
@@ -64,14 +63,14 @@ if __name__=='__main__':
     while True:
         r = input('r: ')
         h = input('h: ')
-        HOST='10.0.0.{}'.format(h)
-        PORT=5566
+        HOST='*****.{}'.format(h)
+        PORT=1234
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
         
         main(HOST,r)
         print('-----------------------')
-#        main('10.0.0.102',5566,rpm0)
+#        main('*****',1234,rpm0)
         if r =='exit':
             s.close()
             break
